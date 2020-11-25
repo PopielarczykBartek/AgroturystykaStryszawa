@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Agroturystyka.API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agroturystyka.API
 {
@@ -22,6 +24,8 @@ namespace Agroturystyka.API
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(x => x.UseSqlite("Connectionstring"));
+
             services.AddControllers();
             services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
             services.AddCors(c =>
@@ -36,8 +40,8 @@ namespace Agroturystyka.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseRouting();
 
+            app.UseRouting();
             app.UseMvc();
             app.UseCors(builder => builder
                          .AllowAnyOrigin()
@@ -47,10 +51,10 @@ namespace Agroturystyka.API
 
 
             app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
         }
     }
 }

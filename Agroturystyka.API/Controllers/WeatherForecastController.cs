@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Agroturystyka.API.Controllers
 {
+    //http://localhost:8164/weatherforecast
+
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
