@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Agroturystyka.API.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Agroturystyka.API.Controllers
@@ -21,35 +22,35 @@ namespace Agroturystyka.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetValues()
+        public async Task< IActionResult> GetValues()
         {
-            var weather = _context.WeatherForecasts.ToList();
+            var weather = await _context.WeatherForecasts.ToListAsync();
             return Ok(weather);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetValue(int id)
+        public async Task<IActionResult> GetValue(int id)
         {
-            var weather = _context.WeatherForecasts.FirstOrDefault(x => x.Id == id);
+            var weather = await _context.WeatherForecasts.FirstOrDefaultAsync(x => x.Id == id);
             return Ok(weather);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] WeatherForecast weather)
+        public async Task<IActionResult> Post([FromBody] WeatherForecast weather)
         {
             _context.WeatherForecasts.Add(weather);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(weather);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] WeatherForecast weather)
+        public async Task<IActionResult> Put(int id, [FromBody] WeatherForecast weather)
         {
-            var data = _context.WeatherForecasts.Find(id);
+            var data = await _context.WeatherForecasts.FindAsync(id);
             data.Summary = weather.Summary;
             data.TemperatureC = weather.TemperatureC;
             _context.WeatherForecasts.Update(data);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(weather);
         }
 
