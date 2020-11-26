@@ -27,11 +27,12 @@ namespace Agroturystyka.API
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
-            services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
+            services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,17 +41,16 @@ namespace Agroturystyka.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-            app.UseMvc();
             app.UseCors(builder => builder
                          .AllowAnyOrigin()
                          .AllowAnyMethod()
                           .AllowAnyHeader()
               );
 
-
             app.UseAuthorization();
+            app.UseMvc();
+
             //app.UseEndpoints(endpoints =>
             //{
             //    endpoints.MapControllers();
