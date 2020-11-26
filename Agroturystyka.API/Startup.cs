@@ -45,7 +45,7 @@ namespace Agroturystyka.API
             app.UseCors(builder => builder
                          .AllowAnyOrigin()
                          .AllowAnyMethod()
-                          .AllowAnyHeader()
+                         .AllowAnyHeader()
               );
 
             app.UseAuthorization();

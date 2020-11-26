@@ -12,7 +12,7 @@ namespace Agroturystyka.API.Controllers
     //http://localhost:8164/weatherforecast
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private readonly DataContext _context;
