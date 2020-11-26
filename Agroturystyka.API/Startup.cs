@@ -24,7 +24,7 @@ namespace Agroturystyka.API
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite("Connectionstring"));
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
             services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
