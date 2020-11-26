@@ -22,6 +22,7 @@ namespace Agroturystyka.API
         }
 
         public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
@@ -32,7 +33,7 @@ namespace Agroturystyka.API
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
             services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
-
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

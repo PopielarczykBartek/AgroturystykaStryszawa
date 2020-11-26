@@ -1,4 +1,5 @@
 ﻿using Agroturystyka.API.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,16 @@ namespace Agroturystyka.API.Data
         {
             _context = context;
         }
-        public Task<User> Login(string username, string password)
+        public async Task<User> Login(string username, string password)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            if (user == null)
+                return null;
+
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                return null;
         }
+
 
         public async Task<User> Register(User user, string password)
         {
@@ -35,9 +42,12 @@ namespace Agroturystyka.API.Data
             return user;
         }
 
-        public Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            throw new NotImplementedException();
+            if (await _context.Users.AnyAsync(x => x.Username == username))
+                return true;
+
+            return false;
         }
 
         #endregion
@@ -48,6 +58,21 @@ namespace Agroturystyka.API.Data
             {
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computtedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                for (int i = 0; i < computtedHash.Length; i++)
+                {
+                    if (computtedHash[i] != passwordHash[i])
+                        return false;
+                }
+                return true;
             }
         }
     }
