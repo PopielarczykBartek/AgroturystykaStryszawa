@@ -21,6 +21,7 @@ namespace Agroturystyka.API.Data
         public async Task<User> Login(string username, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+
             if (user == null)
                 return null;
 
@@ -29,7 +30,6 @@ namespace Agroturystyka.API.Data
 
             return user;
         }
-
 
         public async Task<User> Register(User user, string password)
         {

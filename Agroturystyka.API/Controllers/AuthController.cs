@@ -2,6 +2,12 @@
 using Agroturystyka.API.Dtos;
 using Agroturystyka.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Agroturystyka.API.Controllers
@@ -11,9 +17,11 @@ namespace Agroturystyka.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repository;
-        public AuthController(IAuthRepository repository)
+        private readonly IConfiguration _config;
+        public AuthController(IAuthRepository repository, IConfiguration config)
         {
             _repository = repository;
+            _config = config;
         }
 
         [HttpPost("register")]
@@ -34,6 +42,41 @@ namespace Agroturystyka.API.Controllers
             var createdUser = await _repository.Register(userToCreate, userForRegisterDto.Password);
 
             return StatusCode(201);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login (UserForLoginDto userForLoginDto)
+        {
+            var userFromRepo = await _repository.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+
+            if (userFromRepo == null)
+                return Unauthorized();
+
+            // tworzymy Token
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+                new Claim(ClaimTypes.Name, userFromRepo.Username)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+
+            var securityTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddHours(8),
+                SigningCredentials = creds
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(securityTokenDescriptor);
+
+            return Ok(
+                new {
+                    token = tokenHandler.WriteToken(token)}
+                    );
         }
 
     }
