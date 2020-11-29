@@ -9,7 +9,7 @@ import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
       WeatherComponent,
       NavComponent

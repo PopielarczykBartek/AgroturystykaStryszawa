@@ -20,15 +20,30 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Cennik</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()">Wyloguj</a>
+      </li>
     </ul>
 
+    <div *ngIf="loggedIn()" class="dropdown">
+      <a class="dropdown-toggle text-light">
+        Witaj uzytkowniku
+      </a>
+    
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#"> <i fa fa-user></i>Edytuj profil</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#"><i fa fa-sign-out></i>Edytuj profil</a>
+      </div>
+    </div>
 
-  <form #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
+  <form *ngIf="!loggedIn()"  #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
     <input class="form-control mr-sm-2" type="text" placeholder="Użytkownik" [(ngModel)]="model.username" name="username" required >
     <input class="form-control mr-sm-2" type="password" placeholder="Hasło" [(ngModel)]="model.password" name="password" required >
     <button [disabled]="!loginForm.valid" class="btn btn-outline-success mr-sm-2" type="submit">Zaloguj</button>
   </form>
 
-  <button [disabled]="loginForm.valid" class="btn btn-outline-success mr-sm-2" type="submit">Zarejestruj się</button>
+  <button *ngIf="!loggedIn()" class="btn btn-outline-success mr-sm-2" type="submit">Zarejestruj się</button>
 
 </nav>
+
