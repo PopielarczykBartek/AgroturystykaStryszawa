@@ -1,6 +1,7 @@
 ﻿using Agroturystyka.API.Data;
 using Agroturystyka.API.Dtos;
 using Agroturystyka.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
