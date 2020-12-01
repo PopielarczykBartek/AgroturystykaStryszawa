@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RegisterComponent implements OnInit {
 
   @Input() valuesFromHome: any;
+  @Output() cancelRegister = new EventEmitter();
   model: any = {};
 
   constructor() { }
@@ -21,6 +22,7 @@ export class RegisterComponent implements OnInit {
     }
 
     cancel(): any{
+      this.cancelRegister.emit(false);
       console.log('anulowane');
     }
 }
