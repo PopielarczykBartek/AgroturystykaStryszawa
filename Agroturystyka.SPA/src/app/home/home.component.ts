@@ -9,25 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   registerMode = false;
-  values: any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): any {
-    this.getValues();
   }
 
   registerToggle(): void{
     this.registerMode = true;
   }
 
-  getValues(): any{
-    this.http.get('http://localhost:5000/api/WeatherForecast').subscribe(response => {
-      this.values = response;
-    }, error => {
-      console.log(error);
-    });
-  }
   cancelRegisterMode(registerMode: boolean): void{
     this.registerMode = registerMode;
   }
