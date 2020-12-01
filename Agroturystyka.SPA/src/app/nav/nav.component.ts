@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
@@ -10,16 +11,16 @@ export class NavComponent implements OnInit {
 
   model: any = {};
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit(): any {
   }
 
   login(): any{
     this.authService.login(this.model).subscribe(next => {
-      console.log('zalogowales sie do aplikacji');
+      this.alertify.success('zalogowales sie do aplikacji');
     }, error => {
-      console.log('wystapil blad logowania');
+      this.alertify.error('wystapil blad logowania');
     });
   }
 
@@ -30,7 +31,7 @@ export class NavComponent implements OnInit {
 
   logout(): any{
     localStorage.removeItem('token');
-    console.log('Zostałeś wylogowany');
+    this.alertify.message('Zostałeś wylogowany');
   }
 
 }
