@@ -1,4 +1,4 @@
-import { Component, EventEmitter,Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     register(): any{
       this.authService.register(this.model).subscribe(() => {
         this.alertify.success('rejestracja udana!');
-      }, error =>{
+      }, error => {
           this.alertify.error('Wystąpił błąd rejestracji');
       });
     }
