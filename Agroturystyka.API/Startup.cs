@@ -37,6 +37,8 @@ namespace Agroturystyka.API
             });
             services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IGenericRepository, GenericRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(Options => {
                     Options.TokenValidationParameters = new TokenValidationParameters
