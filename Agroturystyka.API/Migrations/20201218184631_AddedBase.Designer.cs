@@ -9,14 +9,36 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Agroturystyka.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201202153630_ExtendedUser")]
-    partial class ExtendedUser
+    [Migration("20201218184631_AddedBase")]
+    partial class AddedBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("Agroturystyka.API.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
 
             modelBuilder.Entity("Agroturystyka.API.Models.Photo", b =>
                 {
@@ -81,21 +103,11 @@ namespace Agroturystyka.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Agroturystyka.API.WeatherForecast", b =>
+            modelBuilder.Entity("Agroturystyka.API.Models.Comment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Summary")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("TemperatureC")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WeatherForecasts");
+                    b.HasOne("Agroturystyka.API.Models.User", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Agroturystyka.API.Models.Photo", b =>
@@ -107,6 +119,8 @@ namespace Agroturystyka.API.Migrations
 
             modelBuilder.Entity("Agroturystyka.API.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
