@@ -1,24 +1,24 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Agroturystyka Stryszawa</a>
+  <a class="navbar-brand" [routerLink]="['/home']" >Agroturystyka Stryszawa</a>
 
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Pokoje </a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/pokoje']">Pokoje </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Ogród</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/ogród']" >Ogród</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Hodowla</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/hodowla']" >Hodowla</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Opinie</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/opinie']" >Opinie</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Kontakt</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/kontakt']" >Kontakt</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Cennik</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/cennik']" >Cennik</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="logout()">Wyloguj</a>
