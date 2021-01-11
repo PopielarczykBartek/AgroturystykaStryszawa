@@ -9,5 +9,6 @@ namespace Agroturystyka.API.Models
         public string Description { get; set; } // Opis
         public DateTime DateAdded { get; set; } // Data dodania
         public bool IsMain { get; set; }        // Czy zdjecie jest głowne
+        public string public_id { get; set; }
     }
 }
