@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Agroturystyka.API.Helpers
 {
-    public class ClaudinarySettings
+    public class CloudinarySettings
     {
         public string CloudName { get; set; }
         public string ApiKey { get; set; }
