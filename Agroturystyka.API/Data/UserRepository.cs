@@ -14,6 +14,7 @@ namespace Agroturystyka.API.Data
         {
             _context = context;
         }
+
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
@@ -24,6 +25,12 @@ namespace Agroturystyka.API.Data
         {
             var user = await _context.Users.ToListAsync();
             return user;
+        }
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+            return photo;
         }
     }
 }
