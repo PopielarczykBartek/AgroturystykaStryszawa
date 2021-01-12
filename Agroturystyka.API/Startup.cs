@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Agroturystyka.API.Helpers;
+using AutoMapper;
 
 namespace Agroturystyka.API
 {
@@ -51,6 +52,15 @@ namespace Agroturystyka.API
                         ValidateAudience = false
                     };
                 });
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfiles());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

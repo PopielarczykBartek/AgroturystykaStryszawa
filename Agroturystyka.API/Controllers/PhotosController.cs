@@ -18,7 +18,7 @@ using Microsoft.Extensions.Options;
 namespace Agroturystyka.API.Controllers
 {
     [Authorize]
-    [Route ("api/photos")]
+    [Route ("api/{userId}/photos")]
     [ApiController]
     public class PhotosController : ControllerBase
     {
@@ -43,7 +43,7 @@ namespace Agroturystyka.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForUser(int userId, PhotoForCreationDto photoForCreationDto)
+        public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm]PhotoForCreationDto photoForCreationDto)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
@@ -60,22 +60,29 @@ namespace Agroturystyka.API.Controllers
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation().Width(500).Height(500).Crop("fill")
+                        Transformation = new Transformation().Width(500).Height(500)
                     };
 
                     uploadResult = _cloudinary.Upload(uploadParams);
                 }
             }
 
-            photoForCreationDto.Url = uploadResult.Uri.ToString();
+            photoForCreationDto.Url = uploadResult.Url.ToString();
             photoForCreationDto.PublicId = uploadResult.PublicId;
+            photoForCreationDto.Description = "";
+
+
 
             var photo = _mapper.Map<Photo>(photoForCreationDto);
 
-            //if (!userFromRepo.Photos.Any(p => p.IsMain)) // czy zdjecie jest zdjeciem głownym
-            //    photo.IsMain = true;
+            // zabezpieczenie jak nowy user ma photo = null
+            if(userFromRepo.Photos == null)
+            {
+                userFromRepo.Photos = new List<Photo>();
+            }
 
             userFromRepo.Photos.Add(photo);
+
             if(await _repository.SaveAll())
             {
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
