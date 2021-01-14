@@ -39,7 +39,6 @@
     <input class="form-control mr-sm-2" type="password" placeholder="Hasło" [(ngModel)]="model.password" name="password" required >
     <button [disabled]="!loginForm.valid" class="btn btn-outline-success mr-sm-2" type="submit">Zaloguj</button>
   </form>
-
   <button *ngIf="!loggedIn()" class="btn btn-primary mr-sm-2" type="submit">Zarejestruj się</button>
 
 </nav>

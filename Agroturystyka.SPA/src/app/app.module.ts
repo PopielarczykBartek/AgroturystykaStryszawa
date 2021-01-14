@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IvyGalleryModule } from 'angular-gallery';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -19,9 +20,11 @@ import { Price_listComponent } from './price_list/price_list.component';
 import { CommentsComponent } from './comments/comments.component';
 import { GardenComponent } from './garden/garden.component';
 import { appRoutes } from './routes';
+import { PhotosComponent } from './photos/photos.component';
+import { UserService } from './_services/user.service';
 
 @NgModule({
-  declarations: [						
+  declarations: [							
     AppComponent,
       NavComponent,
       HomeComponent,
@@ -31,7 +34,8 @@ import { appRoutes } from './routes';
       ContactComponent,
       Price_listComponent,
       CommentsComponent,
-      GardenComponent
+      GardenComponent,
+      PhotosComponent
    ],
   imports: [
     BrowserModule,
@@ -39,11 +43,13 @@ import { appRoutes } from './routes';
     FormsModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    IvyGalleryModule
   ],
   providers: [
     AuthService,
-    AlertifyService
+    AlertifyService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

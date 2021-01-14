@@ -21,6 +21,7 @@
     "@angular/router": "~11.0.1",
     "@auth0/angular-jwt": "^5.0.2",
     "alertifyjs": "^1.13.1",
+    "angular-gallery": "^1.0.2",
     "bootstrap": "^4.5.3",
     "bootswatch": "^4.5.3",
     "font-awesome": "^4.7.0",
