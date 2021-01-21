@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IvyGalleryModule } from 'angular-gallery';
+import { UserService } from './_services/user.service';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -21,7 +23,6 @@ import { CommentsComponent } from './comments/comments.component';
 import { GardenComponent } from './garden/garden.component';
 import { appRoutes } from './routes';
 import { PhotosComponent } from './photos/photos.component';
-import { UserService } from './_services/user.service';
 
 @NgModule({
   declarations: [							
@@ -44,7 +45,9 @@ import { UserService } from './_services/user.service';
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    IvyGalleryModule
+    IvyGalleryModule,
+    HttpClientModule,
+    NgxGalleryModule
   ],
   providers: [
     AuthService,

@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
 jwtHelper = new JwtHelperService();
-baseUrl = environment + 'auth/';
+baseUrl = environment.apiUrl + 'auth/';
 decodedToken: any;
 
 constructor(private http: HttpClient) { }
@@ -35,6 +35,11 @@ return this.http.post(this.baseUrl + 'register', model);
 loggedIn(): any{
   const token = localStorage.getItem('token');
   return !this.jwtHelper.isTokenExpired(token); // jesli token nie wygasl
+}
+
+getUserId(): any{
+  const token = this.jwtHelper.decodeToken(localStorage.getItem('token'));
+  return token.nameid;
 }
 
 }

@@ -10,6 +10,5 @@ namespace Agroturystyka.API.Data
     {
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int id);
-        Task<Photo> GetPhoto(int id);
     }
 }

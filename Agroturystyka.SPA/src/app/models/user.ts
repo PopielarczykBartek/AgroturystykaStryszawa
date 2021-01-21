@@ -7,5 +7,5 @@ export interface User {
     gender: string;
 
     photos: Photo[];
-    //photoUrl: string;
+    photoUrl: string;
 }

@@ -23,15 +23,17 @@ namespace Agroturystyka.API.Controllers
     public class PhotosController : ControllerBase
     {
         private readonly IUserRepository _repository;
+        private readonly IPhotoRepository _photoRepository;
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
 
-        public PhotosController(IUserRepository repository, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
+        public PhotosController(IUserRepository repository,IPhotoRepository photoRepository ,IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _cloudinaryConfig = cloudinaryConfig;
             _mapper = mapper;
             _repository = repository;
+            _photoRepository = photoRepository;
 
             Account account = new Account(
                 _cloudinaryConfig.Value.CloudName,
@@ -96,7 +98,7 @@ namespace Agroturystyka.API.Controllers
         [HttpGet("{id}", Name = "GetPhoto")]
         public async Task<IActionResult> GetPhoto(int id)
         {
-            var photoFromRepo = await _repository.GetPhoto(id);
+            var photoFromRepo = await _photoRepository.GetPhoto(id);
 
             var photoForReturn = _mapper.Map<PhotoForReturnDto>(photoFromRepo);
 
@@ -104,6 +106,7 @@ namespace Agroturystyka.API.Controllers
 
         }
 
+        
 
     }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Gallery } from 'angular-gallery';
+import { ActivatedRoute } from '@angular/router';
+import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { User } from '../models/user';
-//import { CarouselComponent } from 'angular-gallery/lib/c';
+import { AuthService } from '../_services/auth.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-garden',
@@ -11,38 +13,67 @@ import { User } from '../models/user';
 export class GardenComponent implements OnInit {
 
   user: User;
+  isReady = false;
 
-  constructor(public gallery: Gallery,) { }
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
+
+  constructor(private route: ActivatedRoute,
+              private userService: UserService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+    this.userService.getUser(this.authService.getUserId()).subscribe(data => {
+      console.log(data);
+      this.user = data;
+     // if(this.user = data.user){
+      this.setGalleryOptions();
+    //  }
+    })
+
   }
 
-  showGallery(index: number = 0): any{
-    let prop: any = {};
-    //prop.component = CarouselComponent;
-    prop.images = [
-      {path: '../../assets/1.jpg'},
-      {path: '../../assets/2.jpg'},
-      {path: '../../assets/3.jpg'},
-      {path: '../../assets/4.jpg'},
-    ];
-    prop.index = index;
-    this.gallery.load(prop);
-  }
-
-  closeGallery(){
-    this.gallery.close();
-  }
-
-  getImages(){
+  getImages() {
     const imagesUrls = [];
     for (let i = 0; i < this.user.photos.length; i++) {
       imagesUrls.push({
-        path: this.user.photos[i].url,
+        small: this.user.photos[i].url,
+        medium: this.user.photos[i].url,
+        big: this.user.photos[i].url,
         description: this.user.photos[i].description
       });
     }
     return imagesUrls;
+  }
+  
+  setGalleryOptions(){
+    this.galleryOptions = [
+      {
+        width: '600px',
+        height: '400px',
+        thumbnailsColumns: 4,
+        arrowPrevIcon: 'fa fa-chevron-left',
+        arrowNextIcon: 'fa fa-chevron-right',
+        imageAnimation: NgxGalleryAnimation.Slide
+      },
+      // max-width 800
+      {
+        breakpoint: 800,
+        width: '100%',
+        height: '600px',
+        imagePercent: 80,
+        thumbnailsPercent: 20,
+        thumbnailsMargin: 20,
+        thumbnailMargin: 20
+      },
+      // max-width 400
+      {
+        breakpoint: 400,
+        preview: false
+      }
+    ];
+    this.isReady = true;
+    this.galleryImages = this.getImages();
   }
 
 }
