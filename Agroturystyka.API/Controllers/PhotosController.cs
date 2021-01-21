@@ -18,7 +18,7 @@ using Microsoft.Extensions.Options;
 namespace Agroturystyka.API.Controllers
 {
     [Authorize]
-    [Route ("api/{userId}/photos")]
+    [Route("api/[controller]")]
     [ApiController]
     public class PhotosController : ControllerBase
     {
@@ -106,7 +106,13 @@ namespace Agroturystyka.API.Controllers
 
         }
 
-        
+
+        [HttpGet("getPhotos")]
+        public async Task<List<Photo>> GetPhotos(int IdCategory)
+        {
+            return await _photoRepository.GetPhotos(IdCategory);
+        }
+
 
     }
 }

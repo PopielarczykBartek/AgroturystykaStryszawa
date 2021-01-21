@@ -39,6 +39,7 @@ namespace Agroturystyka.API
             });
             services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.Configure<CloudinarySettings>(Configuration.GetSection("ClaudinarySettings"));
@@ -60,6 +61,12 @@ namespace Agroturystyka.API
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+
+            services.AddControllersWithViews()
+                 .AddNewtonsoftJson(options =>
+                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
 
         }
 

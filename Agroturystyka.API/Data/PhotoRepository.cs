@@ -22,9 +22,10 @@ namespace Agroturystyka.API.Data
             return photo;
         }
 
-        public async Task<List<Photo>> GetPhotos(string name)
+        public async Task<List<Photo>> GetPhotos(int IdCategory)
         {
-            var photo = await _context.Photos.Include(c => c.Categorys.Find( n => n.Name == name)).ToListAsync();
+            var photo = await _context.Photos.Include(x => x.Categories).Where(c => c.Categories.Id == IdCategory).ToListAsync();
+            
             return photo;
         }
 
