@@ -23,6 +23,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { GardenComponent } from './garden/garden.component';
 import { appRoutes } from './routes';
 import { PhotosComponent } from './photos/photos.component';
+import { PhotoService } from './_services/photo.service';
 
 @NgModule({
   declarations: [							
@@ -52,7 +53,8 @@ import { PhotosComponent } from './photos/photos.component';
   providers: [
     AuthService,
     AlertifyService,
-    UserService
+    UserService,
+    PhotoService
   ],
   bootstrap: [AppComponent]
 })

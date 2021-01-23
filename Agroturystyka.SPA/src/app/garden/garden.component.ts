@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { Category } from '../models/category';
 import { Photo } from '../models/photo';
-import { User } from '../models/user';
-import { AuthService } from '../_services/auth.service';
-import { UserService } from '../_services/user.service';
+import { PhotoService } from '../_services/photo.service';
 
 @Component({
   selector: 'app-garden',
@@ -14,42 +10,29 @@ import { UserService } from '../_services/user.service';
 })
 export class GardenComponent implements OnInit {
 
-  user: User;
-  photos: Photo[];
-  categories: Category;
-  
+  photos: Photo[];  
   isReady = false;
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private route: ActivatedRoute,
-              private userService: UserService,
-              private authService: AuthService) { }
+  constructor(private photoService: PhotoService) { }
 
   ngOnInit() {
-  ////  this.userService.getUser(this.authService.getUserId()).subscribe(data => {
-    //  console.log(data);
-     // this.user = data;
-     // if(this.user = data.user){
-      //this.setGalleryOptions();
-    //  }
-    this.setGalleryOptions()
+      this.photoService.getPhotos(1).then(x => {
+        this.photos = x;
+        this.setGalleryOptions();
+      });
     }
-    //)
-
-  //}
-
-  idCat: number = 1;
-
+    
   getImages() {
     const imagesUrls = [];
     for (let i = 0; i < this.photos.length; i++) {
       imagesUrls.push({
-        small: this.photos[i].categories.id == this.idCat,
-        medium: this.photos[i].categories.id == this.idCat,
-        big: this.user.photos[i].categories.id == this.idCat,
-        description: this.user.photos[i].description
+        small: this.photos[i].url,
+        medium: this.photos[i].url,
+        big: this.photos[i].url,
+        description: this.photos[i].description
       });
     }
     return imagesUrls;

@@ -108,7 +108,8 @@ namespace Agroturystyka.API.Controllers
         [HttpGet("getPhotos")]
         public async Task<List<Photo>> GetPhotos(int IdCategory)
         {
-            return await _photoRepository.GetPhotos(IdCategory);
+            var x = await _photoRepository.GetPhotos(IdCategory);
+            return x;
         }
 
     }
