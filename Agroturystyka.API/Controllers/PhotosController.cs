@@ -70,8 +70,6 @@ namespace Agroturystyka.API.Controllers
             photoForCreationDto.PublicId = uploadResult.PublicId;
             photoForCreationDto.Description = "";
 
-
-
             var photo = _mapper.Map<Photo>(photoForCreationDto);
 
             // zabezpieczenie jak user ma photo = null
@@ -79,8 +77,6 @@ namespace Agroturystyka.API.Controllers
             {
                 userFromRepo.Photos = new List<Photo>();
             }
-
-         
 
             photo.Categories = await _photoRepository.GetCategory(idCategory);
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { Category } from '../models/category';
+import { Photo } from '../models/photo';
 import { User } from '../models/user';
 import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
@@ -13,6 +15,9 @@ import { UserService } from '../_services/user.service';
 export class GardenComponent implements OnInit {
 
   user: User;
+  photos: Photo[];
+  categories: Category;
+  
   isReady = false;
 
   galleryOptions: NgxGalleryOptions[];
@@ -23,23 +28,27 @@ export class GardenComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
-    this.userService.getUser(this.authService.getUserId()).subscribe(data => {
-      console.log(data);
-      this.user = data;
+  ////  this.userService.getUser(this.authService.getUserId()).subscribe(data => {
+    //  console.log(data);
+     // this.user = data;
      // if(this.user = data.user){
-      this.setGalleryOptions();
+      //this.setGalleryOptions();
     //  }
-    })
+    this.setGalleryOptions()
+    }
+    //)
 
-  }
+  //}
+
+  idCat: number = 1;
 
   getImages() {
     const imagesUrls = [];
-    for (let i = 0; i < this.user.photos.length; i++) {
+    for (let i = 0; i < this.photos.length; i++) {
       imagesUrls.push({
-        small: this.user.photos[i].url,
-        medium: this.user.photos[i].url,
-        big: this.user.photos[i].url,
+        small: this.photos[i].categories.id == this.idCat,
+        medium: this.photos[i].categories.id == this.idCat,
+        big: this.user.photos[i].categories.id == this.idCat,
         description: this.user.photos[i].description
       });
     }
