@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Agroturystyka.API.Data;
+﻿using Agroturystyka.API.Data;
 using Agroturystyka.API.Dtos;
 using Agroturystyka.API.Helpers;
 using Agroturystyka.API.Models;
@@ -12,8 +7,10 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Agroturystyka.API.Controllers
 {
@@ -45,7 +42,7 @@ namespace Agroturystyka.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm]PhotoForCreationDto photoForCreationDto)
+        public async Task<IActionResult> AddPhotoForUser(int userId,int idCategory, [FromForm]PhotoForCreationDto photoForCreationDto)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
@@ -77,17 +74,22 @@ namespace Agroturystyka.API.Controllers
 
             var photo = _mapper.Map<Photo>(photoForCreationDto);
 
-            // zabezpieczenie jak nowy user ma photo = null
+            // zabezpieczenie jak user ma photo = null
             if(userFromRepo.Photos == null)
             {
                 userFromRepo.Photos = new List<Photo>();
             }
+
+         
+
+            photo.Categories = await _photoRepository.GetCategory(idCategory);
 
             userFromRepo.Photos.Add(photo);
 
             if(await _repository.SaveAll())
             {
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
+                
                 return CreatedAtRoute("GetPhoto", new { id = photo.Id}, photoToReturn);
             }
             return BadRequest("Nie udało się dodać zdjęcia");
@@ -106,13 +108,12 @@ namespace Agroturystyka.API.Controllers
 
         }
 
-
+        [AllowAnonymous]
         [HttpGet("getPhotos")]
         public async Task<List<Photo>> GetPhotos(int IdCategory)
         {
             return await _photoRepository.GetPhotos(IdCategory);
         }
-
 
     }
 }

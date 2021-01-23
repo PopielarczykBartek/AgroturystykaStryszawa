@@ -12,6 +12,6 @@ namespace Agroturystyka.API.Dtos
         public string Description { get; set; } // opis
         public DateTime DateAdded { get; set; } //data dodania
         public bool IsMain { get; set; }        // czy zdj jest główne
-        public string PublicId { get; set; }
+        public string Public_Id { get; set; }
     }
 }

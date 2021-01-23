@@ -10,5 +10,7 @@ namespace Agroturystyka.API.Data
         Task<Photo> GetPhoto(int id);               // znajdz zdj o konkrentm id
         Task<List<Photo>> GetPhotos(int IdCategory); // znajdz zdjecia po kategorii(id)
 
+        Task<Category> GetCategory(int idCategory);  
+
     }
 }

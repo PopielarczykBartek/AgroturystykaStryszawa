@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Agroturystyka.API.Dtos;
+﻿using Agroturystyka.API.Dtos;
 using Agroturystyka.API.Models;
 using AutoMapper;
 

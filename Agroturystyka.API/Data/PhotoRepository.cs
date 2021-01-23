@@ -16,17 +16,24 @@ namespace Agroturystyka.API.Data
             _context = context;
         }
 
+     
+
         public async Task<Photo> GetPhoto(int id)
         {
-            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+            var photo = await _context.Photos.Include(x => x.Categories).FirstOrDefaultAsync(p => p.Id == id);
             return photo;
         }
 
         public async Task<List<Photo>> GetPhotos(int IdCategory)
         {
             var photo = await _context.Photos.Include(x => x.Categories).Where(c => c.Categories.Id == IdCategory).ToListAsync();
-            
             return photo;
+        }
+
+        public async Task<Category> GetCategory(int idCategory)
+        {
+            var category = await _context.Categorys.FirstOrDefaultAsync(i => i.Id == idCategory);
+            return category;
         }
 
     }
