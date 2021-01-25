@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Photo } from '../models/photo';
+import { AuthService } from '../_services/auth.service';
 import { PhotoService } from '../_services/photo.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class RoomsComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private photoService: PhotoService) { }
+  constructor(private photoService: PhotoService,
+              private authService: AuthService) { }
 
   ngOnInit() {
       this.photoService.getPhotos(2).then(x => {
@@ -26,6 +28,11 @@ export class RoomsComponent implements OnInit {
       });
     }
     
+    loggedIn(): any{
+      return this.authService.loggedIn();
+    }
+
+
   getImages() {
     const imagesUrls = [];
     for (let i = 0; i < this.photos.length; i++) {

@@ -1,3 +1,7 @@
 <div *ngIf="isReady" class="gallery-wrapper">
     <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
   </div>
+ 
+  <div *ngIf="loggedIn()" >
+    <app-photos [photos]="photos"></app-photos>
+  </div>
