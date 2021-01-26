@@ -16,6 +16,10 @@ getPhotos(categoryId: number): Promise<Photo[]>{
 return this.http.get<Photo[]>(environment.photoUrl + 'getPhotos?IdCategory=' + categoryId).toPromise();
 }
 
+//getMainPhotos(isMain: number): Promise<Photo[]>{
+//  return this.http.get<Photo[]>(environment.photoUrl + '' + isMain).toPromise();
+//}
+
 
 
 }

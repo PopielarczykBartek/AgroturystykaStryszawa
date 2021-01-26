@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -110,6 +111,37 @@ namespace Agroturystyka.API.Controllers
         {
             var x = await _photoRepository.GetPhotos(IdCategory);
             return x;
+        }
+
+        [HttpPost("SetMainPhoto")]
+        public async Task<IActionResult> SetMainPhoto(int userId, int id)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var user = await _repository.GetUser(userId);
+
+            if (!user.Photos.Any(p => p.Id == id))
+                return Unauthorized();
+
+            var photoFromRepo = await _photoRepository.GetPhoto(id);
+
+            if (photoFromRepo.IsMain)
+                return BadRequest("To zdjecie jest ustawione na zdjeciach głównych");
+            
+            //pobranie zdj głównego
+           // var currentMainPhoto = await _photoRepository.GetMainPhotoForHome(id);
+            //currentMainPhoto.IsMain = false;
+            //
+
+            photoFromRepo.IsMain = true;
+            if (await _photoRepository.SaveAll())
+                return NoContent();
+
+            return BadRequest("Nie mozna ustawic zdjecia jako glownego");
+
+
+
         }
 
     }

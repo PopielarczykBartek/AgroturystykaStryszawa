@@ -1,6 +1,5 @@
 ﻿using Agroturystyka.API.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,5 +35,9 @@ namespace Agroturystyka.API.Data
             return category;
         }
 
+        public async Task<Photo> GetMainPhotoForHome(int id)
+        {
+            return await _context.Photos.Where(u => u.Id == id).FirstOrDefaultAsync(p => p.IsMain); // pobierz zdj o id ktore jest IsMain
+        }
     }
 }
