@@ -13,6 +13,7 @@ export class GardenComponent implements OnInit {
 
   photos: Photo[];  
   isReady = false;
+  idCategory = "1";
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];

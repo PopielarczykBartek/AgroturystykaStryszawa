@@ -13,19 +13,22 @@ import { PhotoService } from '../_services/photo.service';
 export class PhotosComponent implements OnInit {
 
   @Input() photos: Photo[];
+  @Input() idCat;
+
 
   constructor(private photoService: PhotoService,
-              private authService: AuthService) { }
+              private authService: AuthService
+               ) { }
 
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.photoUrl;
 
   ngOnInit() {
-    this.photoService.getPhotos(1).then(x => {
+    this.photoService.getPhotos(this.idCat).then(x => {
       this.photos = x;
     });
-    this.intializeUploader(1);
+    this.intializeUploader(this.idCat);
   }
 
   public fileOverBase(e:any):void {

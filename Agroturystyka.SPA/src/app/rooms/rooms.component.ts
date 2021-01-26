@@ -13,6 +13,8 @@ export class RoomsComponent implements OnInit {
 
   photos: Photo[];  
   isReady = false;
+  idCategory = '2';
+
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];

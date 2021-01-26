@@ -13,6 +13,7 @@ export class FarmComponent implements OnInit {
 
   photos: Photo[];  
   isReady = false;
+  idCategory = "3";
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
