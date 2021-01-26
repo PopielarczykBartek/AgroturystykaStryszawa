@@ -13,6 +13,7 @@ namespace Agroturystyka.API.Data
         Task<Category> GetCategory(int idCategory);
 
         Task<Photo> GetMainPhotoForHome(int id);    //pobierz zdjecie glowne dla stront Home
+        Task<List<Photo>> GetMainPhotos(); //pobranie listy zdjec gdzie isMain = 1.
 
     }
 }

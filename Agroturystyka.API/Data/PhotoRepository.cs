@@ -39,5 +39,10 @@ namespace Agroturystyka.API.Data
         {
             return await _context.Photos.Where(u => u.Id == id).FirstOrDefaultAsync(p => p.IsMain); // pobierz zdj o id ktore jest IsMain
         }
+
+        public async Task<List<Photo>> GetMainPhotos()
+        {
+            return await _context.Photos.Where(m => m.IsMain == true).ToListAsync();
+        }
     }
 }

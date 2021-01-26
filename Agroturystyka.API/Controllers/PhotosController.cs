@@ -128,11 +128,6 @@ namespace Agroturystyka.API.Controllers
 
             if (photoFromRepo.IsMain)
                 return BadRequest("To zdjecie jest ustawione na zdjeciach głównych");
-            
-            //pobranie zdj głównego
-           // var currentMainPhoto = await _photoRepository.GetMainPhotoForHome(id);
-            //currentMainPhoto.IsMain = false;
-            //
 
             photoFromRepo.IsMain = true;
             if (await _photoRepository.SaveAll())
@@ -140,9 +135,16 @@ namespace Agroturystyka.API.Controllers
 
             return BadRequest("Nie mozna ustawic zdjecia jako glownego");
 
-
-
         }
+
+        [AllowAnonymous]
+        [HttpGet("GetMainPhotos")]
+        public async Task<List<Photo>> GetMainPhotos()
+        {
+            return await _photoRepository.GetMainPhotos();
+        }
+
+
 
     }
 }
