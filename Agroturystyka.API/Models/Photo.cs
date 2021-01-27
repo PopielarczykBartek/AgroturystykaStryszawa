@@ -12,6 +12,7 @@ namespace Agroturystyka.API.Models
         public DateTime DateAdded { get; set; } // Data dodania
         public bool IsMain { get; set; }        // Czy zdjecie jest głowne
         public string public_id { get; set; }
+        public int UserId { get; set; }
 
         public virtual Category Categories { get; set; }
 

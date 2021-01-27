@@ -49,6 +49,8 @@ export class GardenComponent implements OnInit {
   setGalleryOptions(){
     this.galleryOptions = [
       {
+       // thumbnailsColumns: 3, // 3 kolumny
+        // thumbnailsRows: 2,   // po 2 wiersze ze zdjeciami
         width: '600px',
         height: '400px',
         thumbnailsColumns: 4,

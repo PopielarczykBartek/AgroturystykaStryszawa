@@ -134,7 +134,6 @@ namespace Agroturystyka.API.Controllers
                 return NoContent();
 
             return BadRequest("Nie mozna ustawic zdjecia jako glownego");
-
         }
 
         [AllowAnonymous]

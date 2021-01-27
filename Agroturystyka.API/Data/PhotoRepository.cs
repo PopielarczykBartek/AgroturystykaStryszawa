@@ -15,8 +15,6 @@ namespace Agroturystyka.API.Data
             _context = context;
         }
 
-     
-
         public async Task<Photo> GetPhoto(int id)
         {
             var photo = await _context.Photos.Include(x => x.Categories).FirstOrDefaultAsync(p => p.Id == id);
@@ -35,10 +33,10 @@ namespace Agroturystyka.API.Data
             return category;
         }
 
-        public async Task<Photo> GetMainPhotoForHome(int id)
-        {
-            return await _context.Photos.Where(u => u.Id == id).FirstOrDefaultAsync(p => p.IsMain); // pobierz zdj o id ktore jest IsMain
-        }
+        //public async Task<Photo> SetMainPhotoForHome(int userId)
+        //{
+        //    return await _context.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain); // pobierz zdj o id ktore jest IsMain
+        //}
 
         public async Task<List<Photo>> GetMainPhotos()
         {

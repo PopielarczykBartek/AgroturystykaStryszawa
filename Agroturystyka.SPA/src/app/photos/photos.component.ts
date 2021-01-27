@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { Photo } from '../models/photo';
+import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 import { PhotoService } from '../_services/photo.service';
 
@@ -17,7 +18,8 @@ export class PhotosComponent implements OnInit {
 
 
   constructor(private photoService: PhotoService,
-              private authService: AuthService
+              private authService: AuthService,
+              private alertify: AlertifyService
                ) { }
 
   uploader: FileUploader;
@@ -64,5 +66,16 @@ export class PhotosComponent implements OnInit {
     };
   }
 
+  setMainPhoto(photo: Photo){
+    this.photoService.setMainPhoto(this.authService.decodedToken.nameid,photo.id).subscribe(() => {
+      console.log("zdj ustawione jako glowne");
+    }, error => {
+      this.alertify.error("nie udalo sie ustawic zdjecia na głowne");
+    });
+  }
+
+  getUserToken(): any{
+
+  }
 
 }
