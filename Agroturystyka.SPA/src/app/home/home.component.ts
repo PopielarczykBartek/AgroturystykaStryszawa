@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Photo } from '../models/photo';
+import { AuthService } from '../_services/auth.service';
 import { PhotoService } from '../_services/photo.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
 
 
   constructor(private http: HttpClient,
-              private photoService: PhotoService) { }
+              private photoService: PhotoService,
+              private authService: AuthService) { }
 
   ngOnInit(): any {
     this.photoService.getMainPhotos().then(x => {
@@ -39,7 +41,9 @@ export class HomeComponent implements OnInit {
     this.registerMode = registerMode;
   }
 
-
+  loggedIn(): any{
+    return this.authService.loggedIn();
+  }
 
   getImages() {
     const imagesUrls = [];

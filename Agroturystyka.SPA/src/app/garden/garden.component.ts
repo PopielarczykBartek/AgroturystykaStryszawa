@@ -56,7 +56,9 @@ export class GardenComponent implements OnInit {
         thumbnailsColumns: 4,
         arrowPrevIcon: 'fa fa-chevron-left',
         arrowNextIcon: 'fa fa-chevron-right',
-        imageAnimation: NgxGalleryAnimation.Slide
+        imageAnimation: NgxGalleryAnimation.Slide,
+        previewCloseOnClick: true,
+        previewCloseOnEsc: true
       },
       // max-width 800
       {

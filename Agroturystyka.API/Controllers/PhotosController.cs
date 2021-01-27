@@ -143,7 +143,38 @@ namespace Agroturystyka.API.Controllers
             return await _photoRepository.GetMainPhotos();
         }
 
+        [HttpDelete("DeletePhoto")]
+        public async Task<IActionResult> DeletePhoto(int userId, int id)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
 
+            var user = await _repository.GetUser(userId);
 
+            if (!user.Photos.Any(p => p.Id == id))
+                return Unauthorized();
+
+            var photoFromRepo = await _photoRepository.GetPhoto(id);
+
+            //if (photoFromRepo.IsMain)
+            // return BadRequest("To zdjecie jest ustawione na zdjeciach głównych");
+
+            if(photoFromRepo.public_id != null)
+            {
+                var deleteParams = new DeletionParams(photoFromRepo.public_id);
+                var result = _cloudinary.Destroy(deleteParams);
+
+                if (result.Result == "ok")
+                    _repository.Delete(photoFromRepo);
+            }
+            else
+            {
+                _repository.Delete(photoFromRepo);
+            }
+      
+            if (await _repository.SaveAll())
+                return Ok();
+            return BadRequest("Nie udało się usunąć zdjęcia");
+        }
     }
 }
