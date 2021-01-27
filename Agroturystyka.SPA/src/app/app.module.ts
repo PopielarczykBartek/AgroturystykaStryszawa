@@ -25,6 +25,11 @@ import { GardenComponent } from './garden/garden.component';
 import { appRoutes } from './routes';
 import { PhotosComponent } from './photos/photos.component';
 import { PhotoService } from './_services/photo.service';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokkenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [							
@@ -49,6 +54,13 @@ import { PhotoService } from './_services/photo.service';
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     IvyGalleryModule,
+    JwtModule.forRoot({
+      config: {
+         tokenGetter: tokkenGetter,
+         allowedDomains: ['localhost:5000'],
+         disallowedRoutes: ['localhost:5000/api/auth']
+      }
+   }),
     HttpClientModule,
     NgxGalleryModule
   ],

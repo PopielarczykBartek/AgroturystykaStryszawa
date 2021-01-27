@@ -66,16 +66,26 @@ export class PhotosComponent implements OnInit {
     };
   }
 
-  setMainPhoto(photo: Photo){
-    this.photoService.setMainPhoto(this.authService.decodedToken.nameid,photo.id).subscribe(() => {
+  setMainPhoto(photoId: number, isMain: boolean){
+    this.photoService.setMainPhoto(this.authService.decodedToken.nameid,photoId, isMain).subscribe(() => {
+      this.photoService.getPhotos(this.idCat).then(p => {
+        this.photos = p;
+      });
       console.log("zdj ustawione jako glowne");
     }, error => {
-      this.alertify.error("nie udalo sie ustawic zdjecia na głowne");
+      this.alertify.error("Coś poszło nie tak...");
     });
   }
 
-  getUserToken(): any{
-
+  deletePhoto(id: number){
+    this.alertify.confirm("Czy jestes pewien ze chcesz usunąć zdjęcie?", () => {
+      this.photoService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(() => {
+        this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
+        this.alertify.success("Zdjęcie zostało usunięte");
+      }, error => {
+        this.alertify.error("Nie udało się usunąć zdjęcia");
+      });
+    });
   }
 
 }
