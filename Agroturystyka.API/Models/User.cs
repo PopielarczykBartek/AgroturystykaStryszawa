@@ -19,9 +19,6 @@ namespace Agroturystyka.API.Models
 
 
         /// Zakladka zdjecia
-        
         public ICollection<Photo> Photos { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-
     }
 }

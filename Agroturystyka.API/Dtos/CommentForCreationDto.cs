@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Agroturystyka.API.Models
+namespace Agroturystyka.API.Dtos
 {
-    public class Comment
+    public class CommentForCreationDto
     {
-        public int Id { get; set; }
         public string NickName { get; set; }
         public string Email { get; set; }
         public DateTime DateAdded { get; set; }
-
         public string Content { get; set; }
+
+        public CommentForCreationDto()
+        {
+            DateAdded = DateTime.Now;
+        }
     }
+
+   
+    
 }

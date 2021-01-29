@@ -10,6 +10,7 @@ namespace Agroturystyka.API.Helpers
         {
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<CommentForCreationDto, Comment>();
         }
     }
 }

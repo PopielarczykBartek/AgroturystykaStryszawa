@@ -42,6 +42,7 @@ namespace Agroturystyka.API
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.Configure<CloudinarySettings>(Configuration.GetSection("ClaudinarySettings"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(Options => {
@@ -87,10 +88,6 @@ namespace Agroturystyka.API
             app.UseAuthentication();
             app.UseMvc();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
         }
     }
 }

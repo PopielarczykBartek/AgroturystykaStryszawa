@@ -153,9 +153,6 @@ namespace Agroturystyka.API.Controllers
 
             var photoFromRepo = await _photoRepository.GetPhoto(id);
 
-            //if (photoFromRepo.IsMain)
-            // return BadRequest("To zdjecie jest ustawione na zdjeciach głównych");
-
             if(photoFromRepo.public_id != null)
             {
                 var deleteParams = new DeletionParams(photoFromRepo.public_id);
