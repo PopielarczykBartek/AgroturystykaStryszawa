@@ -3,6 +3,5 @@ export interface Comment {
     id: number;
     nickName: string;
     content: string;
-    dateAdded: string;
-
+    dateAdded: Date;
 }

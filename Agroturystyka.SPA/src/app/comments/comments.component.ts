@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import 'rxjs/add/operator/map';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-comments',
@@ -18,7 +19,7 @@ export class CommentsComponent implements OnInit {
 
   constructor(private commentService: CommentService,
               private alertify: AlertifyService,
-              private httpClient: HttpClient) { }
+              private authService: AuthService) { }
 
   model: any = {};
 
@@ -28,7 +29,11 @@ export class CommentsComponent implements OnInit {
     this.getComments();
   }
 
-  comment(): any{
+  loggedIn(): any{
+    return this.authService.loggedIn();
+  }
+
+  addComment(): any{
     this.commentService.AddComment(this.model).subscribe(() => {
       this.alertify.success('Komentarz dodany!');
       this.model = {};
@@ -44,7 +49,16 @@ export class CommentsComponent implements OnInit {
     
   }
 
-
+deleteComment(id: number){
+this.alertify.confirm("Czy jestes pewien ze chcesz usunac ten komentarz?", () => {
+  this.commentService.deleteComment(this.authService.decodedToken.nameid, id).subscribe(() => {
+    this.comments.splice(this.comments.findIndex( p => p.id === id),1);
+    this.alertify.success("Komentarz został usunięty");
+  }, error => {
+    this.alertify.error("Nie udało się usunąć komentarza");
+  });
+});
+}
 
 
 }

@@ -14,7 +14,7 @@ namespace Agroturystyka.API.Dtos
 
         public CommentForCreationDto()
         {
-            DateAdded = DateTime.Now;
+            DateAdded = DateTime.Now.Date;
         }
     }
 

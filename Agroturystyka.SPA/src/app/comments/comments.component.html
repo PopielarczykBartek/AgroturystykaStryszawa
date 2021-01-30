@@ -8,7 +8,10 @@
               <li *ngFor="let comment of comments">
               <div class="comment mt-4 text-justify float-left">
                     <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
-                    <h4>{{comment.nickName}}</h4> 
+                    <h4>  {{comment.nickName}} 
+                        <button *ngIf="loggedIn()" type="button" class="btn btn-sm btn-danger" 
+                        (click)="deleteComment(comment.id)" ><i class="fa fa-trash-o"></i>Usuń</button>
+                    </h4> 
                     <span><br>{{comment.dateAdded}}</span> <br>
                     <p>{{comment.content}} </p>
               </div>
@@ -35,7 +38,7 @@
                      </div>
 
                   <div class="form-group">
-                       <button type="button" id="post" class="btn" (click)="comment()">Umieść komentarz</button> 
+                       <button type="button" id="post" class="btn" (click)="addComment()">Umieść komentarz</button> 
                     </div>
 
               </form>
