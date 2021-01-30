@@ -49,16 +49,14 @@ export class GardenComponent implements OnInit {
   setGalleryOptions(){
     this.galleryOptions = [
       {
-       // thumbnailsColumns: 3, // 3 kolumny
-        // thumbnailsRows: 2,   // po 2 wiersze ze zdjeciami
-        width: '600px',
-        height: '400px',
-        thumbnailsColumns: 4,
-        arrowPrevIcon: 'fa fa-chevron-left',
-        arrowNextIcon: 'fa fa-chevron-right',
-        imageAnimation: NgxGalleryAnimation.Slide,
+        imageAutoPlay: true, 
+        imageAutoPlayPauseOnHover: true,
+        previewAutoPlay: true,
+        previewAutoPlayPauseOnHover: true ,
         previewCloseOnClick: true,
-        previewCloseOnEsc: true
+        previewCloseOnEsc: true,
+        width: '600px',
+        height: '600px',
       },
       // max-width 800
       {

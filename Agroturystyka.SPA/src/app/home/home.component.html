@@ -2,13 +2,19 @@
 
   <div *ngIf="!registerMode" style="text-align: center;">
     <h1> Otrzymaj 5% zniżki na cały pobyt u nas. Wszystko co musisz zrobić to:</h1>
-    <p class="lead">Zarejestruj się -> Dodaj komentarz o nas -> Wyślij nam 5 swoich najlepszych zdjęć z pobytu u nas! :) </p>
-
-    <div class="text-center">
+    <p class="lead"> -> Polub nas na fb i udostepnij profil u siebie 
+      <a href="https://www.facebook.com/anna.lalik" title="Gospodarstwo agroturystyczne Anna Lalik">
+        <img src="../../assets/fb.png" alt="FB" width="20" height="20">
+      </a>
+      <br> 
+      -> Dodaj komentarz o nas <br> 
+      -> Wyślij nam 5 swoich najlepszych zdjęć z pobytu u nas! :) </p>
+    
+   <!-- <div class="text-center">
       <button class="btn btn-primary btn-lg" (click)="registerToggle()" >Rejestracja</button>
     </div>
   </div>
-
+-->
   <div *ngIf="registerMode" class="container">
     <div class="row justify-content-center">
       <div class="col-4">

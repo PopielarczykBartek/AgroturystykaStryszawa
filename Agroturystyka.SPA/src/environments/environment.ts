@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:5000/api/',
-  photoUrl: 'http://localhost:5000/api/photos/'
+  photoUrl: 'http://localhost:5000/api/photos/',
+  comment: 'http://localhost:5000/api/comment/'
 };
 
 /*

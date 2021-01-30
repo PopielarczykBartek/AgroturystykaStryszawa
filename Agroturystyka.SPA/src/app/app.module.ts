@@ -9,6 +9,7 @@ import { IvyGalleryModule } from 'angular-gallery';
 import { UserService } from './_services/user.service';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -25,7 +26,7 @@ import { GardenComponent } from './garden/garden.component';
 import { appRoutes } from './routes';
 import { PhotosComponent } from './photos/photos.component';
 import { PhotoService } from './_services/photo.service';
-import { JwtModule } from '@auth0/angular-jwt';
+import { CommentService } from './_services/comment.service';
 
 export function tokkenGetter() {
   return localStorage.getItem('token');
@@ -68,7 +69,8 @@ export function tokkenGetter() {
     AuthService,
     AlertifyService,
     UserService,
-    PhotoService
+    PhotoService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

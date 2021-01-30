@@ -51,14 +51,14 @@ export class RoomsComponent implements OnInit {
   setGalleryOptions(){
     this.galleryOptions = [
       {
-        width: '600px',
-        height: '400px',
-        thumbnailsColumns: 4,
-        arrowPrevIcon: 'fa fa-chevron-left',
-        arrowNextIcon: 'fa fa-chevron-right',
-        imageAnimation: NgxGalleryAnimation.Slide,
+        imageAutoPlay: true, 
+        imageAutoPlayPauseOnHover: true,
+        previewAutoPlay: true,
+        previewAutoPlayPauseOnHover: true ,
         previewCloseOnClick: true,
-        previewCloseOnEsc: true
+        previewCloseOnEsc: true,
+        width: '600px',
+        height: '600px',
       },
       // max-width 800
       {
